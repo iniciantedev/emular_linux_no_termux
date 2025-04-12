@@ -8,10 +8,10 @@ def distros():
 	print("alpine linux -> alpine")
 
 def help():
-	print("-d [distro] para emular uma distro linux.")
+	print("-d [distro] para instalar uma distro linux.")
 	print("--help para pedir ajuda.")
 	print("--list para listar as distros")
-	print("--run-distro para rodar uma distro")
+	print("--run-distro [distro] [forma de boot] ex: disk/cdrom para rodar uma distro")
 
 def emule():
 	if len(sys.argv) < 3:
@@ -27,9 +27,13 @@ def emule():
 			print('falha! digite "python emular.py --help" para obter instruções')
 
 def run():
+	if len(sys.argv) < 4:
+		print('falha! digite "python emular.py --help" para obter instruções')
+		exit()
 	if os.path.isfile("./" + sys.argv[2] + ".iso") and os.path.isfile("./" + sys.argv[2] + ".qcow2"):
 		print("seu programa foi linux será aberto em localhost:1")
-		subprocess.run([
+		if sys.argv[3] == "cdrom":
+			subprocess.run([
 			"qemu-system-x86_64",
 			"-hda", "./" + sys.argv[2] + ".qcow2",
 			"-m", "512",
@@ -38,7 +42,21 @@ def run():
 			"-netdev", "user,id=a",
 			"-device", "e1000,netdev=a",
 			"-vnc", ":1"
-])
+			])
+		elif sys.argv[3] == "disk":
+			subprocess.run([
+                                "qemu-system-x86_64",
+                                "-hda", "./" + sys.argv[2] + ".qcow2",
+                                "-m", "512",
+                                "-nic", "none",
+                                "-netdev", "user,id=a",
+                                "-device", "e1000,netdev=a",
+                                "-vnc", ":1"
+				])
+		else:
+			print('falha! digite "python emular.py --help" para obter instruções')
+	else:
+		print('falha! digite "python emular.py --help" para obter instruções')
 def request(site, arquivo_destino):
     with urllib.request.urlopen(site) as resposta:
         with open(arquivo_destino, "wb") as f:

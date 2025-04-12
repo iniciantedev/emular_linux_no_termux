@@ -1,4 +1,4 @@
-versao alpha
+versao 1
 
 esse programa tem como intuito facilitar a emulação no termux!
 
