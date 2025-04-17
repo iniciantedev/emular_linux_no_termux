@@ -1,4 +1,4 @@
-versao 1
+versao 2
 
 esse programa tem como intuito facilitar a emulação no termux!
 
@@ -6,10 +6,7 @@ em caso de duvidas de como usar digite "python emular.py --help".
 
 para instalar dependencias digite.
 
-''
-chmod +x install.sh
-./install.sh
-''
+chmod +x install.sh && ./install.sh
 
 dependencias:
 
