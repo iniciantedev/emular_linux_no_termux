@@ -1,16 +1,12 @@
-versao 2
+versao 3
 
 esse programa tem como intuito facilitar a emulação no termux!
 
-em caso de duvidas de como usar digite "python emular.py --help".
+para instalar digite:
 
-para instalar dependencias digite.
-
+pkg install -y git
+git clone https://github.com/iniciantedev/emular_linux_no_termux.git
+cd emular*
 chmod +x install.sh && ./install.sh
 
-dependencias:
-
-python3;
-qemu-system-x86-64-headless;
-qemu-utils;
-openssl.
+em caso de duvidas de como usar digite "python emular.py --help"!

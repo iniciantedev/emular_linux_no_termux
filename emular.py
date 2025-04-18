@@ -3,9 +3,19 @@ import urllib.request
 import subprocess
 import os
 
+url = {
+"linux": {
+"alpine": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/x86_64/alpine-virt-3.21.3-x86_64.iso",
+"tinycore": "http://www.tinycorelinux.net/16.x/x86/release/TinyCore-current.iso",
+"slitaz": "http://mirror.slitaz.org/iso/rolling/slitaz-rolling.iso"
+}
+}
+
 def distros():
 	print("distros:\n")
 	print("alpine linux -> alpine")
+	print("slitaz -> slitaz")
+	print("tinycorelinux -> tinycore")
 
 def help():
 	print("-d [distro] para instalar uma distro linux.")
@@ -14,17 +24,13 @@ def help():
 	print("--run-distro [distro] [forma de boot] ex: disk/cdrom para rodar uma distro")
 
 def emule():
-	if len(sys.argv) < 3:
+	if len(sys.argv) < 3 or sys.argv[2] not in url["linux"]:
 		print('falha! digite "python emular.py --help" para obter instruções')
 		exit()
-	match sys.argv[2]:
-		case "alpine":
-			print("instalando alpine.iso..")
-			request("https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/x86_64/alpine-virt-3.21.3-x86_64.iso", "alpine.iso")
-			subprocess.run(["qemu-img", "create", "-f", "qcow2", "alpine.qcow2", "5G"])
-			print("instalação concluida!")
-		case _:
-			print('falha! digite "python emular.py --help" para obter instruções')
+	print("instalando " + sys.argv[2] + ".iso..")
+	request(url["linux"][sys.argv[2]], sys.argv[2] + ".iso")
+	subprocess.run(["qemu-img", "create", "-f", "qcow2", sys.argv[2] + ".qcow2", "5G"])
+	print("instalação concluida!")
 
 def run():
 	if len(sys.argv) < 4:
