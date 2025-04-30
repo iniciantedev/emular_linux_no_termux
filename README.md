@@ -1,12 +1,17 @@
-versao 3
+#versão FINAL
 
-esse programa tem como intuito facilitar a emulação no termux!
+esse programa tem como intuito facilitar a emulação no>
 
 para instalar digite:
 
-pkg install -y git
-git clone https://github.com/iniciantedev/emular_linux_no_termux.git
+```shell
+git clone https://github.com/iniciantedev/emular_linux>
 cd emular*
 chmod +x install.sh && ./install.sh
+```
 
-em caso de duvidas de como usar digite "python emular.py --help"!
+em caso de duvidas de como usar digite:
+
+```shell
+python emular.py --help
+```

@@ -1,5 +1,6 @@
 import sys
 import urllib.request
+from urllib.error import URLError
 import subprocess
 import os
 
@@ -25,7 +26,7 @@ def help():
 
 def emule():
 	if len(sys.argv) < 3 or sys.argv[2] not in url["linux"]:
-		print('falha! digite "python emular.py --help" para obter instruções')
+		print('argumentos insuficientes')
 		exit()
 	print("instalando " + sys.argv[2] + ".iso..")
 	request(url["linux"][sys.argv[2]], sys.argv[2] + ".iso")
@@ -34,7 +35,7 @@ def emule():
 
 def run():
 	if len(sys.argv) < 4:
-		print('falha! digite "python emular.py --help" para obter instruções')
+		print('argumentos insuficientes')
 		exit()
 	if os.path.isfile("./" + sys.argv[2] + ".iso") and os.path.isfile("./" + sys.argv[2] + ".qcow2"):
 		print("seu programa foi linux será aberto em localhost:1")
@@ -60,19 +61,27 @@ def run():
                                 "-vnc", ":1"
 				])
 		else:
-			print('falha! digite "python emular.py --help" para obter instruções')
+			print('argumento invalido')
 	else:
-		print('falha! digite "python emular.py --help" para obter instruções')
+		print('iso ou disco não encontrado, digite "python emular.py -d [distro]"')
 def request(site, arquivo_destino):
-    with urllib.request.urlopen(site) as resposta:
-        with open(arquivo_destino, "wb") as f:
-            bloco = True
-            while bloco:
-                bloco = resposta.read(1024)
-                f.write(bloco)
+	try:
+		with urllib.request.urlopen(site) as resposta:
+			try:
+				with open(arquivo_destino, "wb") as f:
+					bloco = True
+					while bloco:
+						bloco = resposta.read(1024)
+						f.write(bloco)
+			except:
+				print("permissão negada ao criar um arquivo")
+				exit()
 
+	except URLError:
+		print("falha ao encontrar servidor")
+		exit()
 if len(sys.argv) < 2:
-	print('falha! digite "python emular.py --help" para obter instruções')
+	print('argumentos insuficientes')
 	sys.exit()
 
 match sys.argv[1]:
@@ -85,5 +94,5 @@ match sys.argv[1]:
 	case "--run-distro":
 		run()
 	case _:
-		print('falha! digite "python emular.py --help" para obter instruções')
+		print('argumento invalido')
 
