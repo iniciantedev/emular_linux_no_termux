@@ -1,11 +1,11 @@
 #versão FINAL
 
-esse programa tem como intuito facilitar a emulação no>
+esse programa tem como intuito facilitar a emulação no termux.
 
 para instalar digite:
 
 ```shell
-git clone https://github.com/iniciantedev/emular_linux>
+git clone https://github.com/iniciantedev/emular_linux_no_termux.git
 cd emular*
 chmod +x install.sh && ./install.sh
 ```
